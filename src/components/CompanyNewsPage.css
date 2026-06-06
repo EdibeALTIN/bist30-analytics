@@ -1,0 +1,389 @@
+/* Premium Company News — layered banners, no flat boxes.
+   .cnews-align = navbar ile aynı max-w + yatay padding. */
+
+.cnews-page {
+  min-height: 100vh;
+  background: #070b12;
+  background-image:
+    linear-gradient(180deg, rgba(6, 182, 212, 0.045) 0%, transparent 32%),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(6, 182, 212, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 52px 52px, 52px 52px;
+  padding: 5.5rem 0 4.25rem;
+}
+
+.cnews-inner {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+@media (min-width: 1024px) {
+  .cnews-inner {
+    gap: 3.25rem;
+  }
+}
+
+.cnews-hero {
+  text-align: center;
+  padding: 0.75rem 0 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .cnews-hero {
+    padding: 1rem 0 1.85rem;
+  }
+}
+
+.cnews-hero h1 {
+  font-size: clamp(1.9rem, 2.2vw + 1rem, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #e0f2fe 0%, #7dd3fc 45%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 32px rgba(34, 211, 238, 0.32));
+}
+
+.cnews-filter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 1.15rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(7, 11, 18, 0.95) 100%);
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+.cnews-filter select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  background: rgba(2, 6, 14, 0.85);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.6rem 0.85rem;
+}
+
+.cnews-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+@media (min-width: 1280px) {
+  .cnews-stack {
+    gap: 3.25rem;
+  }
+}
+
+/* ----- Card shell ----- */
+.cnews-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 24px 56px -12px rgba(0, 0, 0, 0.62),
+    0 0 80px -28px rgba(6, 182, 212, 0.08);
+}
+
+@media (min-width: 1280px) {
+  .cnews-card {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 32px 64px -14px rgba(0, 0, 0, 0.65),
+      0 0 100px -20px rgba(6, 182, 212, 0.1);
+  }
+}
+
+.cnews-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 1.5rem;
+  background: linear-gradient(180deg, rgba(6, 10, 18, 0.35) 0%, rgba(4, 7, 12, 0.85) 100%);
+  border-radius: 0 0 24px 24px;
+}
+
+.cnews-section-spacer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 0 1.25rem 1.15rem;
+}
+
+@media (min-width: 1024px) {
+  .cnews-section-spacer {
+    padding: 0 1.75rem 1.35rem;
+    gap: 1.35rem;
+  }
+}
+
+/* ----- Banner (hero) ----- */
+.cnews-banner {
+  position: relative;
+  padding: 1.75rem 1.25rem 2.75rem;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+}
+
+@media (min-width: 1024px) {
+  .cnews-banner {
+    padding: 2.15rem 1.75rem 3.1rem;
+  }
+}
+
+.cnews-banner__noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Sektör katmanları: base gradient header üzerine */
+.cnews-banner__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cnews-banner__texture {
+  z-index: 0;
+  mix-blend-mode: soft-light;
+}
+
+.cnews-banner__light {
+  z-index: 0;
+  background-size: 100% 100%;
+}
+
+.cnews-banner__light--t {
+  opacity: 0.95;
+}
+
+.cnews-banner__light--b {
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+.cnews-banner__rays {
+  z-index: 0;
+  opacity: 0.75;
+  mix-blend-mode: soft-light;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 35%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 35%, #000 100%);
+}
+
+.cnews-banner__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.1) 0%, transparent 42%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Eski .cnews-banner__pattern (SVG) kaldırıldı; ışık/gradyan kategorileri palette’ten */
+
+.cnews-banner__content {
+  position: relative;
+  z-index: 4;
+}
+
+.cnews-ticker {
+  display: block;
+  font-size: clamp(1.75rem, 1.2vw + 1.2rem, 2.75rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.45rem 0;
+}
+
+@media (min-width: 1280px) {
+  .cnews-ticker {
+    font-size: clamp(2rem, 1.3vw + 1.4rem, 3rem);
+  }
+}
+
+.cnews-cname {
+  display: block;
+  font-size: clamp(0.85rem, 0.35vw + 0.7rem, 1.1rem);
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0.88;
+  margin: 0;
+}
+
+.cnews-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.05rem;
+}
+
+.cnews-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.38rem 0.7rem;
+  border-radius: 9999px;
+  font-size: clamp(0.62rem, 0.2vw + 0.55rem, 0.72rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.cnews-pill--ghost {
+  opacity: 0.9;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* analyst chip */
+.cnews-analyst-pill {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: clamp(0.85rem, 0.4vw + 0.7rem, 1rem);
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* sections */
+.cnews-block {
+  border-radius: 18px;
+  padding: 1.1rem 1.15rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(165deg, rgba(20, 28, 44, 0.65) 0%, rgba(8, 11, 20, 0.92) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1024px) {
+  .cnews-block {
+    padding: 1.25rem 1.4rem 1.35rem;
+  }
+}
+
+.cnews-block h3 {
+  margin: 0 0 0.45rem 0;
+  font-size: clamp(0.68rem, 0.2vw + 0.6rem, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(203, 213, 225, 0.85);
+}
+
+.cnews-hint {
+  margin: 0 0 0.7rem 0;
+  font-size: clamp(0.75rem, 0.2vw + 0.65rem, 0.88rem);
+  line-height: 1.5;
+  color: rgba(148, 163, 184, 0.88);
+}
+
+.cnews-prose {
+  font-size: clamp(0.88rem, 0.35vw + 0.72rem, 1.05rem);
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.95);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cnews-mgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+@media (min-width: 1280px) {
+  .cnews-mgrid {
+    gap: 0.8rem;
+  }
+}
+
+.cnews-mcell {
+  min-height: 3.75rem;
+  border-radius: 12px;
+  padding: 0.5rem 0.6rem 0.55rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(5, 8, 14, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+@media (min-width: 1280px) {
+  .cnews-mcell {
+    min-height: 4rem;
+  }
+}
+
+.cnews-mlab {
+  font-size: clamp(0.6rem, 0.2vw + 0.5rem, 0.68rem);
+  line-height: 1.2;
+  color: rgba(148, 163, 184, 0.9);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cnews-mval {
+  font-size: clamp(0.88rem, 0.35vw + 0.72rem, 1.05rem);
+  font-weight: 800;
+  color: #f8fafc;
+  margin-top: 0.2rem;
+  word-break: break-word;
+}
+
+.cnews-mhint {
+  font-size: clamp(0.58rem, 0.15vw + 0.5rem, 0.65rem);
+  line-height: 1.25;
+  margin-top: 0.25rem;
+  color: rgba(45, 212, 191, 0.75);
+  font-weight: 600;
+}
+
+.cnews-mcell--wide {
+  grid-column: 1 / -1;
+}
+
+.cnews-details {
+  border-radius: 12px;
+  border: 1px solid rgba(34, 211, 238, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.cnews-details summary {
+  padding: 0.75rem 1rem;
+  font-size: clamp(0.75rem, 0.25vw + 0.65rem, 0.88rem);
+  font-weight: 700;
+  color: rgba(100, 200, 220, 0.85);
+  cursor: pointer;
+  list-style: none;
+}
+
+.cnews-details pre {
+  margin: 0;
+  padding: 0.85rem 1rem 1.1rem;
+  font-size: clamp(0.7rem, 0.2vw + 0.6rem, 0.8rem);
+  line-height: 1.5;
+  color: rgba(161, 161, 170, 0.95);
+  white-space: pre-wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
